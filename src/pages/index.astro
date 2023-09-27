@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Post from '../components/Post.svelte';
 import type { PostResource } from '../types'
+import { AxiosHttpService } from '../services/http';
 
 const video: PostResource = {
 	id: 1,
@@ -23,10 +24,14 @@ const post: PostResource = {
 	type: 'Post',
 	author: 'Gabriel Morishita'
 }
+
+const photo = await new AxiosHttpService().get('v2/list?page=10&limit=1');
+console.log(photo.data)
 ---
 
 <Layout title="Infocatalogo">
 	<main>
+		<img src={photo.data[0].download_url} alt="a" />
 		<Post client:visible height={100} post={video}/>
 		<br>
 		<Post client:visible height={100} post={foto}/>
