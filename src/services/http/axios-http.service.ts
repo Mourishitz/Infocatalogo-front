@@ -4,10 +4,12 @@ import { HttpServiceException } from './exceptions'
 
 export class AxiosHttpService implements IHttpClient {
     private http: Axios;
+    private baseUrl: string
 
-    constructor() {
+    constructor(baseUrl: string) {
+        this.baseUrl = baseUrl;
         this.http = axios.create({
-            baseURL: 'https://picsum.photos', // TODO: implement real endpoints
+            baseURL: this.baseUrl,
         });
     }
 
