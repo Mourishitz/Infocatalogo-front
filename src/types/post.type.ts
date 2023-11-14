@@ -7,4 +7,7 @@ export type PostResource = {
   type: string,
   content: string,
   author: Pick<UserResouce, 'id' | 'name'>,
+  liked: boolean,
+  likes: number,
+  comments: []
 }
