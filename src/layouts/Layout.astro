@@ -24,6 +24,7 @@ const { title } = Astro.props;
 </html>
 <style is:global>
 	:root {
+		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 		--accent: 136, 58, 234;
 		--accent-light: 224, 204, 250;
 		--accent-dark: 49, 10, 101;
@@ -40,8 +41,7 @@ const { title } = Astro.props;
 	}
 
 	html {
-		font-family: system-ui, sans-serif;
-		background: theme('colors.white');
+		background: theme('colors.darker-purple');
 		background-size: 224px;
 	}
 	code {

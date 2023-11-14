@@ -1,54 +1,51 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Post from '../components/post/Post.svelte';
-import type { PostResource } from '../types'
+import InfocatalogoAPI from '../services/api'
+import Post from '../components/svelte/post/Post.svelte';
 import { AxiosHttpService } from '../services/http';
 
 const picsum = new AxiosHttpService('https://picsum.photos');
 const photo = await picsum.get('v2/list?page=10&limit=1');
 
-const video: PostResource = {
-	id: 1,
-	title: 'Esse é meu vídeo',
-	type: 'Vídeo',
-	content: 'https://ia804502.us.archive.org/33/items/GoldenGa1939_3/GoldenGa1939_3_512kb.mp4',
-	author: {
-		id: 1,
-		name: 'Gabriel Morishita',
-	}
-}
+const response = await InfocatalogoAPI.getPosts();
 
-const foto: PostResource = {
-	id: 1,
-	title: 'Essa é minha foto',
-	type: 'Foto',
-	content: photo.data[0].download_url,
-	author: {
-		id: 1,
-		name: 'Gabriel Morishita',
-	}
-}
-
-const post: PostResource = {
-	id: 1,
-	title: 'Esse é meu post',
-	type: 'Post',
-	content: 'Meu texto genérico',
-	author :{
-		id: 1,
-		name: 'Gabriel Morishita',
-	}
+function handleLogin () {
+	console.log("LOGIN")
 }
 
 ---
 
 <Layout title="Infocatalogo">
-	<main class="flex flex-col items-center mt-5">
-		<Post client:visible height={100} post={video}/>
-		<br>
-		<Post client:visible height={100} post={foto}/>
-		<br>
-		<Post client:visible height={100} post={post}/>
+	<main transition:name="slide" class="flex flex-col items-center">
+		<div class="flex items-center justify-between bg-white w-full p-4 mb-4">
+			<div class="min-w-0 flex-1">
+			  <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight ml-8">Infocatalogo</h2>
+			</div>
+			<div class="mt-5 flex lg:ml-4 lg:mt-0">
+			  <span>
+				<a
+					href="/login"
+					class="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold bg-purple hover:bg-darker-purple hover:cursor-pointer text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+					>
+				  <svg class="-ml-0.5 mr-1.5 h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+					<path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+				  </svg>
+				  Login
+				</a>
+			  </span>
+			</div>
+		</div>
+		<div class="w-10/12 lg:w-8/12">
+			{
+				response.data.map((post) => {
+					return( 
+						<div class="mt-8 mb-8">
+							<Post client:visible post={post}/>	
+						</div>
+					)
+				})
+			}
+		</div>
 	</main>
 </Layout>
 
