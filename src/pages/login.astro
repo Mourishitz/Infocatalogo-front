@@ -1,0 +1,19 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Login from '../components/svelte/Login.svelte'
+---
+
+<Layout title="Infocatalogo">
+	<!-- White Container -->
+	<main transition:animate="fade" class="flex flex-col items-center justify-center absolute h-full w-full text-purple bg-white">
+		<div class="w-full flex justify-center">
+			<Login client:load />
+		</div>
+		<a href="/">
+			Voltar
+		</a>
+	</main>
+</Layout>
+
+<style>
+</style>

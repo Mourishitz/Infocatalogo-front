@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { PostResource } from '../../types'
+    import type { PostResource } from '../../../types'
     export let post: PostResource;
 </script>
 
